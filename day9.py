@@ -4,25 +4,36 @@ from aocd import submit
 import time
 import collections
 
-puzzle = Puzzle(year=2020, day=9)
-
-raw = puzzle.input_data
-data = raw.splitlines()
 
 def part2(array, next_num):
     # part 2
-    print(array)
-    contigous_list = []
-    contigous_sum = 0
-    for i in array:
-        if contigous_sum == next_num and len(contigous_list) > 2:
-            print(max(contigous_list) + min(contigous_list))
+    found=False
+    j =0
+    loopsize=len(array)
 
-        else:
-            contigous_sum += i
-            contigous_list.append(i)
+    while j < loopsize:
+        contigous_list = []
+        contigous_sum = 0
 
-    # part 2
+        for item in array:
+            if contigous_sum == next_num and len(contigous_list) > 2:
+                found= True
+                print(max(contigous_list) + min(contigous_list))
+                break
+
+
+            else:
+                #print(contigous_sum)
+                contigous_sum += item
+                contigous_list.append(item)
+                #print(contigous_list)
+        if found == True:
+            print(contigous_list)
+            break
+        array.pop(0)
+        j+=1
+
+
 def rulecheck(array):
     next_num = array[-1]
     array.pop(-1)
@@ -33,22 +44,27 @@ def rulecheck(array):
 
     return True
 
-f = open("day9_sample", "r")
-data = f.readlines()
+
+
+puzzle = Puzzle(year=2020, day=9)
+
+raw = puzzle.input_data
+data = raw.splitlines()
+#f = open("day9_sample", "r")
+#data = f.readlines()
 
 for i in range(0, len(data)):
     data[i] = int(data[i].strip())
 
-print(data)
-original = data
-preamble = 5
+original = data.copy()
+preamble = 25
+
 while not rulecheck(data[:(preamble+1)]):
     data.pop(0)
 
-print(data)
-print(original)
-
-part2(original, 127)
+#127 for sample
+#1038347917 for actual puzzel
+part2(original, 1038347917)
 
 
 
