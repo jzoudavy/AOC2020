@@ -39,13 +39,13 @@ data = f.readlines()
 for i in range(0, len(data)):
     data[i] = int(data[i].strip())
 
-print(len(data))
+print(data)
 original = data
 preamble = 5
 while not rulecheck(data[:(preamble+1)]):
     data.pop(0)
 
-
+print(data)
 print(original)
 
 part2(original, 127)
